@@ -1,0 +1,15 @@
+{
+    "name": "nikolaysulima/hillel",
+    "autoload": {
+        "psr-4": {
+            "myns\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "TechnoPreacher",
+            "email": "nik.nik.sulia@gmail.com"
+        }
+    ],
+    "require": {}
+}

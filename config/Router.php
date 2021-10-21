@@ -2,7 +2,7 @@
 
 
 
-namespace myns\core;
+namespace myns\config;
 
 class Router
 {

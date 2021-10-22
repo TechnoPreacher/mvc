@@ -4,13 +4,17 @@ namespace myns\controllers\home;
 
 class HomeController
 {
-    public function __construct(array $params=[])
+
+
+
+    public  function index()
     {
-        echo "welcome to Home".'</br>'.'</br>';
-        if (is_array($params)) {
-            foreach ($params as $k => $v) {
-                echo "param: " . $k . "==>" . $v . '</br>';
-            }
-        }
+        echo "just home index method";
     }
+
+    public  function test()
+    {
+        echo " home TEST method";
+    }
+
 }

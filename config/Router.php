@@ -3,77 +3,39 @@
 
 namespace myns\config;
 
-use myns\controllers\ErrorController;
-use myns\controllers\admin\AdminController;
-use myns\controllers\home\HomeController;
+use myns\controllers\ErrorController;//404
 
 class Router
 {
 
-
     function __construct()
     {
-        ?><pre> <?php
 
-                var_dump($_GET);
-                ?> </pre> <?php
-
-        if (isset($_GET['url']))
+        if (isset($_GET['url']))//если нашелся урл - обрабатываю
         {
             $url = $_GET['url'];//получаю урл
+            $url = explode('/', $url);//превращаю в массив и нулевым элементом будет искомыф контроллер
 
-
-            $controller = 0;
-
-
-            $ar = explode('/', $url);//забираю массив
-
+            $params = $_GET;//массив параметров
+            unset($params['url']);//убиваю урл чтоб оставить только параметры
             ?>
-            <pre> <?php
+            <pre> <?php //var_dump($url[0]);
+                ?> </pre> <?php
 
-            //    var_dump($ar);
-                ?> </pre>
-            <?php
-            //echo '</br>'.$url;
+            $classSpace = "myns\controllers\\" . $url[0] . "\\" . $url[0] . "Controller";//имя класса
 
-            ?>
-          //  <pre> <?php   if (isset($_GET['url']))
-                //var_dump($ar);
-          ?> </pre>
-            //<?php
-
-
-            $findController = 0;
-
-
-            foreach ($ar as $v) {
-                if ($v == "admin") {
-                    $controller = new AdminController(serialize($v));
-                    $findController = 1;
-                    break;
-                }
-
-                if ($v == "home") {
-                    $controller = new HomeController();
-                    $findController = 1;
-                    break;
-                }
-
-
+            if (class_exists($classSpace))
+            {
+                new $classSpace($params);//нашел контроллр - подключаю
             }
+            else
+                new ErrorController();//не нашед - даю 404
 
-             if (0==$findController)
-              {
-                  $controller = new ErrorController();
-              }
-
-
-        } else echo "url is empty";
-
-        unset($controller);
-        unset($ar);
+        } else //если не было пути - говорю что ничего нет и 404 (хз нужна ли она тут...)
+        {
+            echo "url is empty" . '</br>';
+            $controller = new ErrorController();
+        }
 
     }
-
-
 }

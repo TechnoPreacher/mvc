@@ -39,7 +39,7 @@ class Router
             $obj = new $className;
             if (method_exists($obj, $methodName)) {
                 return $obj->$methodName();
-            }
+            } else { new ErrorController();}
         } else { //классов не нашли - значит нужно плюнуть 404
 
             if (!isset($_SERVER['REDIRECT_URL'])) {
